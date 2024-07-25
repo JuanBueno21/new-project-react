@@ -48,8 +48,8 @@ function useTodos() {
     newTodos.splice(todoIndex, 1);
     saveTodos(newTodos);
   };
-
-  return ({
+  
+  return {
     loading,
     error,
     totalTodos,
@@ -62,7 +62,7 @@ function useTodos() {
     deleteTodo,
     openModal,
     setOpenModal,
-  });
+  };
 }
 
 export { useTodos };

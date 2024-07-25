@@ -1,46 +1,50 @@
-import React from "react";
+import React from 'react';
 
-  function useLocalStorage(itemName, initialValue) {
-    const [item, setItem] = React.useState(initialValue);
-    const [loading, setLoading] = React.useState(true);
-    const [error, setError] = React.useState(false);
-    
-    React.useEffect(() => {
-      setTimeout(() => {
-        try {
-          const localStorageItem = localStorage.getItem(itemName);
-  
-          let parsedItem;
-  
-          if (!localStorageItem) {
-            localStorage.setItem(itemName, JSON.stringify(initialValue));
-            parsedItem = initialValue;
-          } else {
-            parsedItem = JSON.parse(localStorageItem);
-            setItem(parsedItem);
-          }
-          setLoading(false);
-        } catch (error) {
-          setLoading(false);
-          setError(true);
+function useLocalStorage(itemName, initialValue) {
+  const [error, setError] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const [item, setItem] = React.useState(initialValue);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      try {
+        const localStorageItem = localStorage.getItem(itemName);
+        let parsedItem;
+
+        if (!localStorageItem) {
+          localStorage.setItem(itemName, JSON.stringify(initialValue));
+          parsedItem = initialValue;
+        } else {
+          parsedItem = JSON.parse(localStorageItem);
         }
-      }, 2000);
-    }, [itemName, initialValue]);
-  
-    const saveItem = (newItem) => {
-      localStorage.setItem(itemName, JSON.stringify(newItem));
+
+        setItem(parsedItem);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+      }
+    }, 3000);
+  });
+
+  const saveItem = (newItem) => {
+    try {
+      const stringifiedItem = JSON.stringify(newItem);
+      localStorage.setItem(itemName, stringifiedItem);
       setItem(newItem);
-    };
-  
-    return {
-      item,
-      saveItem,
-      loading,
-      error
-    };
-  }
-  
-  export { useLocalStorage };
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  return {
+    item,
+    saveItem,
+    loading,
+    error,
+  };
+}
+
+export { useLocalStorage };
 
 // localStorage.removeItem("TODOS_V1");
 // const defaultTodos = [

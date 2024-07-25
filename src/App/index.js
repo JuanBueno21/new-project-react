@@ -6,7 +6,7 @@ import { TodoSearch } from '../TodoSearch';
 import { TodoList } from '../TodoList';
 import { TodoItem } from '../TodoItem';
 import { TodosError } from '../TodosError';
-import { TodosLoading } from './TodosLoading';
+import { TodosLoading } from '../TodoLoading';
 import { EmptyTodos } from '../EmptyTodos';
 import { TodoForm } from '../TodoForm';
 import { CreateTodoButton } from '../CreateTodoButton';
@@ -16,7 +16,7 @@ function App() {
   const {
     error,
     loading,
-    searchedTodos,
+    searchedTodos = [],
     completeTodo,
     deleteTodo,
     openModal,
@@ -27,7 +27,7 @@ function App() {
     setSearchValue,
     addTodo,
   } = useTodos();
-
+  
   return (
     <React.Fragment>
       <TodoHeader>
@@ -44,11 +44,14 @@ function App() {
       <TodoList
         error={error}
         loading={loading}
+        totalTodos={totalTodos}
         searchedTodos={searchedTodos}
+        searchText={searchValue}
         onError={() => <TodosError />}
         onLoading={() => <TodosLoading />}
         onEmptyTodos={() => <EmptyTodos />}
-        render={todo =>
+        onEmptySearchResult={(searchText) => <p>No hay resultados para {searchText}</p>}
+        render={todo => (
           <TodoItem
             key={todo.text}
             text={todo.text}
@@ -56,15 +59,15 @@ function App() {
             onComplete={() => completeTodo(todo.text)}
             onDelete={() => deleteTodo(todo.text)}
           />
-        }
+        )}
       />
 
       {!!openModal && (
         <Modal>
-          <TodoForm>
+          <TodoForm
             addTodo={addTodo}
             setOpenModal={setOpenModal}
-          </TodoForm>
+          />
         </Modal>
       )}
 
