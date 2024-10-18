@@ -1,10 +1,6 @@
 # Proyecto React.js
 Este proyecto es una pagina web donde el usuario tiene la posibilidad de crear todos (tareas), a su ves puedes marcar las tareas que ya se realizaron, tambien puedes eliminarlas y en la barra de busqueda puedes filtrar todos.
 
-## Descripción
-
-El curso de React.js proporciono una introducción completa a la biblioteca de JavaScript para construir interfaces de usuario. A lo largo del curso, se cubren los conceptos fundamentales y avanzados de React, incluyendo componentes, estado, propiedades y el manejo de eventos, así como el uso de hooks.
-
 ## Tecnologías Utilizadas
 - React.js: Biblioteca de JavaScript para construir interfaces de usuario.
 - JavaScript (ES6+): Lenguaje de programación utilizado para la lógica del proyecto.
